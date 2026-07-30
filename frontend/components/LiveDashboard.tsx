@@ -20,7 +20,7 @@ export default function LiveDashboard() {
    const loadTrades = async () => {
    
    const res = await
-axios.get("http://127.0.0.1:8000/api/v1/trades");
+   axios.get("http://127.0.0.1:8000/api/v1/trades");
     setTrades(res.data);
    };
 
@@ -40,6 +40,9 @@ axios.get("http://127.0.0.1:8000/api/v1/trades");
     trade => trade.profit > 0
   ).length;
 
+  const losingTrades = trades.filter(
+    trade => trade.profit < 0).length;
+
   const winRate = trades.length === 0 ? 0
   :(winningTrades/ trades.length) * 100;
 
@@ -57,6 +60,26 @@ const profitFactor =
  grossLoss === 0
  ? grossProfit
   : grossProfit / grossLoss;
+
+const averageWin = 
+  winningTrades === 0 
+    ? 0
+    :grossProfit / winningTrades;
+
+const averageLoss =
+ losingTrades === 0
+  ? 0
+   :grossLoss / losingTrades;
+
+const largestWin = 
+ trades.length === 0
+  ? 0
+   :Math.max(...trades.map(t => t.profit));
+
+const largestLoss =
+  trades.length === 0
+  ? 0
+  : Math.min(...trades.map(t => t.profit));
 
 const filteredTrades = trades.filter((trade) => {
 
@@ -88,6 +111,13 @@ const directionMatch =
                 
                 <StatCard title="Profit Factor" value={profitFactor.toFixed(2)} />
             
+            </div>
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mt-6">
+              <StatCard title="Average Win" value={`$${averageWin.toFixed(2)}`} valueClassName="text-green-600" />
+              <StatCard title="Average Loss" value={`$${averageLoss.toFixed(2)}`} valueClassName="text-red-600" />
+              <StatCard title="Largest Win" value={`$${largestWin.toFixed(2)}`} valueClassName="text-green-600" />
+              <StatCard title="Largest Loss" value={`$${largestLoss.toFixed(2)}`} valueClassName="text-red-600" />
+
             </div>
             <EquityChart trades={trades} /><br/>
             <div className="text-black flex flex-col md:flex-row gap-4 mb-6">
