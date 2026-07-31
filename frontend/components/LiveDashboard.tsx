@@ -134,6 +134,7 @@ const directionMatch =
 
             </div>
             <TradeTable trades={filteredTrades} />
+            
             </main>
            
             </>

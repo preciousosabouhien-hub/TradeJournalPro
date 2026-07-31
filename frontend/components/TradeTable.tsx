@@ -1,21 +1,17 @@
-type Trade ={
-    id:number;
-    ticket:string;
-    symbol:string;
-    trade_type:string;
-    entry_price:number;
-    exit_price:number;
-    volume:number;
-    profit:number;
-    open_time:string;
-    close_time:string;
-};
+"use client";
+
+import{ useState } from "react";
+import TradeDetails from "./TradeDetails";
+import { Trade } from "@/types/trade";
 
 type Props = {
     trades: Trade[];
+     
 };
-
 export default function TradeTable({ trades}: Props){
+    
+   const [selectedTrade, setSelectedTrade] = useState<Trade | null>(null);
+
     return (<div className="bg-white rounded-xl shadow-md mt-8 overflow-hidden">
            <div className="p-6 border-b">
            <h2 className="text-black font-bold">Recent Trades</h2></div>
@@ -37,32 +33,38 @@ export default function TradeTable({ trades}: Props){
             </tr>
              </thead>
              <tbody>
-                {trades.map((trade) => (
-                    <tr key={trade.id}className="text-black border-t hover:bg-yellow-100 transition-colors cursor-pointer">
-                        <td className="p-4">{trade.ticket}</td>
+        {trades.map((trade) => (
+        <tr key={trade.id}className="text-black border-t hover:bg-yellow-100 transition-colors cursor-pointer" 
+        onClick={() => setSelectedTrade(trade)}>
+            <td className="p-4">{trade.ticket}</td>
 
-                        <td className="p-4 font-semibold">{trade.symbol}</td>
-                        
-                        <td className={`p-4 font-bold ${trade.trade_type === "BUY" ?"text-green-600":"text-red-600"}`}>{trade.trade_type}</td>
-                        
-                        <td className="p-4">{trade.entry_price.toFixed(5)}</td>
-                        
-                        <td className="p-4">{trade.exit_price.toFixed(5)}</td>
-                        
-                        <td className="p-4">{trade.volume}</td>
-                         
-                        <td className={`p-4 font-semibold ${ 
-                            trade.profit >= 0? 
-                            "text-green-600"
-                            :"text-red-600"}`}>{trade.profit >= 0 ?"+" :""}$
-                            {trade.profit.toFixed(2)}</td>
-                        <td className="p-4">{new Date(trade.open_time).toLocaleString()}</td>
-                        
-                        <td className="p-4">{new Date(trade.close_time).toLocaleString()}</td>    
-                         </tr>
-                ))}
-             </tbody>
-           </table>
+            <td className="p-4 font-semibold">{trade.symbol}</td>
+            
+            <td className={`p-4 font-bold ${trade.trade_type === "BUY" ?"text-green-600":"text-red-600"}`}>{trade.trade_type}</td>
+            
+            <td className="p-4">{trade.entry_price.toFixed(5)}</td>
+            
+            <td className="p-4">{trade.exit_price.toFixed(5)}</td>
+            
+            <td className="p-4">{trade.volume}</td>
+                
+            <td className={`p-4 font-semibold ${ 
+                trade.profit >= 0? 
+                "text-green-600"
+                :"text-red-600"}`}>{trade.profit >= 0 ?"+" :""}$
+                {trade.profit.toFixed(2)}</td>
+            <td className="p-4">{new Date(trade.open_time).toLocaleString()}</td>
+            
+            <td className="p-4">{new Date(trade.close_time).toLocaleString()}</td>    
+                </tr>
+    ))}
+    </tbody>
+    
+</table>
+  <TradeDetails trade ={selectedTrade} onClose={() => setSelectedTrade(null)}/>
+
+
+ 
 
     </div>);
 }

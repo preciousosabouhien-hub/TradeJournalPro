@@ -1,0 +1,40 @@
+ "use client";
+ import { Trade } from "@/types/trade";
+
+ interface Props{
+    trade: Trade | null;
+    onClose: () => void;
+ }
+
+ export default function TradeDetails({ trade, onClose }: Props ){
+     if (!trade) return null;
+
+     return(
+        <div className="fixed top-0 right-0 h-full w-96 bg-white shadow-2xl p-6 overflow-y-auto z-50">
+             <button onClick={onClose} className="text-red-600 font-bold float-right">
+                    X</button>
+            <div className="flex justify-between items-center mb-6" >
+                <h2 className="text-white bg-zinc-900 p-5 w-full text-xl font-bold">
+                   &nbsp;Trade Details
+                </h2>
+
+               
+            </div>
+            <div className="space-y-4 border-black">
+                    <h3 className="text-black"><strong>Ticket:&nbsp;</strong>{trade.ticket}</h3>
+                    <h3 className="text-black"><strong>Symbol:&nbsp;</strong>{trade.symbol}</h3>
+                    <h3 className="text-black"><strong>Direction:&nbsp;</strong>
+                    <b className={`${trade.trade_type === "BUY" ?"text-green-600":"text-red-600"}`}>
+                       {trade.trade_type} </b></h3>
+                    <h3 className="text-black"><strong>Volume:&nbsp;</strong>{trade.volume}</h3>
+                    <h3 className="text-black"><strong>Entry:&nbsp;</strong>{trade.entry_price}</h3>
+                    <h3 className="text-black"><strong>Exit:&nbsp;</strong>{trade.exit_price}</h3>
+                    <h3 className="text-black"><strong>Outcome:&nbsp;</strong>
+                    <b className={`${ trade.profit >= 0? "text-green-600":"text-red-600"}`}>
+                   {trade.profit}</b></h3>
+                    <h3 className="text-black"><strong>Open:&nbsp;</strong>{trade.open_time}</h3>
+                    <h3 className="text-black"><strong>Close:&nbsp;</strong>{trade.close_time}</h3>
+            </div>
+        </div>
+     );
+}
