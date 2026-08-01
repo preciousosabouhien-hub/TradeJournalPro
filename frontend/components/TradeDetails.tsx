@@ -5,7 +5,19 @@
     trade: Trade | null;
     onClose: () => void;
  }
+ function formatDuration(open:string, close: string){
+   const start = new Date(open).getTime();
+   const end = new Date(close).getTime();
 
+   const diff = Math.floor((end - start) / 1000);
+    
+   const hours = Math.floor(diff / 3600);
+   const minutes = Math.floor((diff % 3600) / 60);
+
+   const seconds = diff % 60;
+
+   return `${hours}h ${minutes}m ${seconds}s`;
+ }
  export default function TradeDetails({ trade, onClose }: Props ){
      if (!trade) return null;
 
@@ -34,6 +46,7 @@
                    {trade.profit}</b></h3>
                     <h3 className="text-black"><strong>Open:&nbsp;</strong>{trade.open_time}</h3>
                     <h3 className="text-black"><strong>Close:&nbsp;</strong>{trade.close_time}</h3>
+                    <h3 className="text-black"><strong>Duration:&nbsp;</strong>{formatDuration(trade.open_time, trade.close_time)}</h3>
             </div>
         </div>
      );
