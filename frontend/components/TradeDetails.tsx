@@ -23,7 +23,10 @@
  export default function TradeDetails({ trade, onClose }: Props ){
     
     const [notes, setNotes] = useState("");
-    useEffect(() => { setNotes(trade?.notes ?? "");}, [trade]);
+    const [strategy, setStrategy] =useState("");
+    useEffect(() => { setNotes(trade?.notes ?? "");
+                       setStrategy(trade?.strategy ?? "");
+    }, [trade]);
   
     const saveNotes = async () => {
       if(!trade) return;
@@ -32,7 +35,8 @@
          await axios.patch(
             `http://127.0.0.1:8000/api/v1/trades/${trade.id}`,
             {
-               notes: notes
+               notes: notes,
+               strategy: strategy
             }
          );
          setSaved(true);
@@ -78,12 +82,25 @@
                     <h3 className="text-black"><strong>Close:&nbsp;</strong>{trade.close_time}</h3>
                     <h3 className="text-black"><strong>Duration:&nbsp;</strong>{formatDuration(trade.open_time, trade.close_time)}</h3>
                    <div className="mt-6">
-                     <label className="block font-semibold mb-2" >Trade Notes</label>
+                     <label className="block font-semibold mb-2">Strategy</label>
+                     <select value={strategy} onChange={(e) => setStrategy(e.target.value)}
+                     className="w-full border rounded-lg p-3">
+                        <option value="">Select Strategy </option>
+                         <option value="Supply & Demand">Supply & Demand </option>
+                           <option value="Breakout">Breakout </option>
+                             <option value="Reversal">Reversal </option>
+                               <option value="Scalping">Scalping </option>
+                                 <option value="Swing">Swing </option>
+                                   <option value="News">News </option>
+                     </select>
+                   </div>
+                   <div className="mt-6">
+                     <label className="block text-black font-semibold mb-2" >Trade Notes</label>
                      <textarea
                      value={notes}
                      onChange={(e) => setNotes(e.target.value)}
                      rows={6}
-                     className="w-full border rounded-lg p-3"
+                     className="w-full border text-black rounded-lg p-3"
                      placeholder="Why did you enter this trade? What did you learn?"/>
                      {saved && ( <p className="text-green-600 font-semibold mb-2">
                          Notes Saved successfully

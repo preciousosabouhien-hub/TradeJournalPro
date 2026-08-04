@@ -60,6 +60,7 @@ def update_trade_notes(
         }
 
     trade.notes = trade_update.notes
+    trade.strategy = trade_update.strategy
 
     db.commit()
     db.refresh(trade)

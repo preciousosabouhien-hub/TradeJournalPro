@@ -12,4 +12,5 @@ export interface Trade {
     close_time:string;
     
     notes?:string;
+    strategy?:string;
 }

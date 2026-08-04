@@ -41,3 +41,5 @@ class Trade(Base):
     swap = Column(Float)
 
     notes = Column(Text, nullable=True)
+
+    strategy = Column(String, nullable=True)
