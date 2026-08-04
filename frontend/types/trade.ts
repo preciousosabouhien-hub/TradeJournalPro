@@ -10,5 +10,6 @@ export interface Trade {
     broker:string;
     open_time:string;
     close_time:string;
-
+    
+    notes?:string;
 }

@@ -1,5 +1,6 @@
 from pydantic import BaseModel
 from datetime import datetime
+from typing import Optional
 
 
 class TradeCreate(BaseModel):
@@ -13,3 +14,7 @@ class TradeCreate(BaseModel):
     broker: str
     open_time: datetime
     close_time: datetime
+
+
+class TradeUpdate(BaseModel):
+    notes: Optional[str] = None

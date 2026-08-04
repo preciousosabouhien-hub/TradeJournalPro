@@ -1,4 +1,6 @@
  "use client";
+ import axios from "axios";
+ import { useEffect, useState } from "react";
  import { Trade } from "@/types/trade";
 
  interface Props{
@@ -19,8 +21,36 @@
    return `${hours}h ${minutes}m ${seconds}s`;
  }
  export default function TradeDetails({ trade, onClose }: Props ){
-     if (!trade) return null;
+    
+    const [notes, setNotes] = useState("");
+    useEffect(() => { setNotes(trade?.notes ?? "");}, [trade]);
+  
+    const saveNotes = async () => {
+      if(!trade) return;
 
+      try {
+         await axios.patch(
+            `http://127.0.0.1:8000/api/v1/trades/${trade.id}`,
+            {
+               notes: notes
+            }
+         );
+         setSaved(true);
+
+         setTimeout(() => {
+            setSaved(false);
+         }, 2000);
+      }
+      catch (error){
+         console.error(error);
+         alert("failed to save notes.");
+      }
+    };
+
+    const [saved, setSaved] = useState(false);
+     
+   if (!trade) return null;
+      
      return(
         <div className="fixed top-0 right-0 h-full w-96 bg-white shadow-2xl p-6 overflow-y-auto z-50">
              <button onClick={onClose} className="text-red-600 font-bold float-right">
@@ -47,7 +77,23 @@
                     <h3 className="text-black"><strong>Open:&nbsp;</strong>{trade.open_time}</h3>
                     <h3 className="text-black"><strong>Close:&nbsp;</strong>{trade.close_time}</h3>
                     <h3 className="text-black"><strong>Duration:&nbsp;</strong>{formatDuration(trade.open_time, trade.close_time)}</h3>
+                   <div className="mt-6">
+                     <label className="block font-semibold mb-2" >Trade Notes</label>
+                     <textarea
+                     value={notes}
+                     onChange={(e) => setNotes(e.target.value)}
+                     rows={6}
+                     className="w-full border rounded-lg p-3"
+                     placeholder="Why did you enter this trade? What did you learn?"/>
+                     {saved && ( <p className="text-green-600 font-semibold mb-2">
+                         Notes Saved successfully
+                     </p>)}
+                     <button onClick={saveNotes} className="mt-4 bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 ">
+                        Save Notes
+                     </button>
+                   </div>
             </div>
         </div>
      );
+     
 }

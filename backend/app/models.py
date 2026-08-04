@@ -1,4 +1,4 @@
-from sqlalchemy import Column, Integer, String, Float, DateTime
+from sqlalchemy import Column, Integer, String, Float, DateTime, Text
 from .database import Base
 
 
@@ -40,3 +40,4 @@ class Trade(Base):
 
     swap = Column(Float)
 
+    notes = Column(Text, nullable=True)

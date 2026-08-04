@@ -3,7 +3,7 @@ from sqlalchemy.orm import Session
 
 from ..database import get_db
 from ..models import Trade
-from ..schemas import TradeCreate
+from ..schemas import TradeCreate, TradeUpdate
 
 router = APIRouter(prefix="/trades",
         tags=["Trades"])
@@ -42,3 +42,30 @@ def create_trade(trade: TradeCreate, db:Session = Depends(get_db)):
 @router.get("/")
 def get_trades(db: Session = Depends(get_db)):
     return db.query(Trade).all()
+
+@router.patch("/{trade_id}")
+def update_trade_notes(
+    trade_id: int,
+    trade_update: TradeUpdate,
+    db: Session = Depends(get_db)
+):
+    trade = db.query(Trade).filter(
+        Trade.id == trade_id
+    ).first()
+
+    if trade is None:
+        return {
+            "status": "error",
+            "message": "Trade not found"
+        }
+
+    trade.notes = trade_update.notes
+
+    db.commit()
+    db.refresh(trade)
+
+    return {
+        "status" : "success",
+        "message" : "Notes updated",
+        "trade"   : trade
+    }
