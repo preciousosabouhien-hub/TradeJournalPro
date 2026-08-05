@@ -5,6 +5,7 @@ import axios from "axios";
 import { Trade } from "@/types/trade";
 import Navbar from "@/components/Navbar";
 import Statcard from "@/components/StatCard";
+import ProfitBySymbolChart from "@/components/ProfitBySymbolChart";
 
 export default function AnalyticsPage() {
     const [trades, setTrades] = useState<Trade[]>([]);
@@ -37,7 +38,27 @@ export default function AnalyticsPage() {
         const averageProfit = totalTrades === 0 
         ? 0 :totalProfit / totalTrades;
     
-    console.log(trades);    return(
+        console.log(trades);  
+    
+        const profitBySymbol = Object.values(
+            trades.reduce((acc, trade) => {
+                if(!acc[trade.symbol]) {
+                    acc[trade.symbol] = {
+                        symbol: trade.symbol,
+                        profit: 0
+                    };
+                }
+
+                acc[trade.symbol].profit += trade.profit;
+
+                return acc;
+
+            
+            }, {} as Record<string, {symbol: string; profit: number }>)
+        );
+
+
+        return(
         
         <>
         <Navbar/>
@@ -48,13 +69,14 @@ export default function AnalyticsPage() {
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
                 <Statcard title="Total Trades" value={totalTrades.toString()} />
 
-                <Statcard title="Winning Trades" value={winningTrades.toString()} />
+                <Statcard title="Winning Trades" value={winningTrades.toString()}  valueClassName="text-green-600"/>
 
-                 <Statcard title="Losing Trades" value={losingTrades.toString()} />
+                 <Statcard title="Losing Trades" value={losingTrades.toString()}  valueClassName="text-red-600" />
 
-                 <Statcard title="Average Profit" value={`$${averageProfit.toFixed(2)}`} />
+                 <Statcard title="Average Profit" value={`$${averageProfit.toFixed(2)}`}  valueClassName={averageProfit >= 0 ? "text-green-600":"text-red-600"} />
                 
             </div>
+            <ProfitBySymbolChart data={profitBySymbol} />
         </main>
         </>
     );
