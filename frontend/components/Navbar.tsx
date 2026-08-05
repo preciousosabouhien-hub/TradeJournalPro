@@ -1,3 +1,5 @@
+import Link from "next/link";
+
 export default function Navbar(){
     return (
         <nav className="bg-zinc-800 text-white px-8 py-4 flex justify-between items-center shadow-md">
@@ -6,7 +8,7 @@ export default function Navbar(){
             </h1>
     
         <div className="flex gap-6">
-         <a href="#" className="transition-colors duration-200 hover:text-yellow-400">
+         <a href="/" className="transition-colors duration-200 hover:text-yellow-400">
             Dashboard
          </a>
 
@@ -14,7 +16,7 @@ export default function Navbar(){
             Trades
          </a>
 
-         <a href="#" className="transition-colors duration-200 hover:text-yellow-400">
+         <a href="/analytics" className="transition-colors duration-200 hover:text-yellow-400">
             Analytics
          </a>
          
