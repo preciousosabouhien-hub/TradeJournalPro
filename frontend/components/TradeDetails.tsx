@@ -81,7 +81,7 @@
                     <h3 className="text-black"><strong>Open:&nbsp;</strong>{trade.open_time}</h3>
                     <h3 className="text-black"><strong>Close:&nbsp;</strong>{trade.close_time}</h3>
                     <h3 className="text-black"><strong>Duration:&nbsp;</strong>{formatDuration(trade.open_time, trade.close_time)}</h3>
-                   <div className="mt-6">
+                   <div className="mt-6 text-black">
                      <label className="block font-semibold mb-2">Strategy</label>
                      <select value={strategy} onChange={(e) => setStrategy(e.target.value)}
                      className="w-full border rounded-lg p-3">
