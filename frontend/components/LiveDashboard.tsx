@@ -99,7 +99,7 @@ const directionMatch =
     return (
         <>
         <Navbar />
-            <main className="bg-gray-300 min-h-screen p-8">
+            <main className="bg-gray-300 dark:bg-zinc-950 min-h-screen p-8">
 
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
             
@@ -123,9 +123,9 @@ const directionMatch =
             <div className="text-black flex flex-col md:flex-row gap-4 mb-6">
               
               <input type="text" placeholder="Search Symbol..." value={search} onChange={(e) => setSearch(e.target.value)}
-              className="bg-white border-black rounded-lg p-2 w-full md:w-64" />
+              className="bg-white dark:bg-zinc-900 border-black rounded-lg p-2 w-full md:w-64" />
               <select value={direction} onChange={(e) => setDirection(e.target.value)}
-                className="bg-white border-black rounded-lg p-2"
+                className="bg-white dark:bg-zinc-900 border-black rounded-lg p-2"
               >
                 <option value="ALL" >All Trades </option>
                                 <option value="BUY" >BUY </option>

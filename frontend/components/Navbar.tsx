@@ -1,4 +1,5 @@
 import Link from "next/link";
+import ThemeToggle from "./ThemeToggle";
 
 export default function Navbar(){
     return (
@@ -23,7 +24,10 @@ export default function Navbar(){
          <a href="#" className="transition-colors duration-200 hover:text-yellow-400">
             Settings
          </a>
-        </div>    
+         
+       
+        <ThemeToggle />
+        </div>  
         </nav>
     );
 }
