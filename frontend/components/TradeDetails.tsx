@@ -56,7 +56,7 @@
    if (!trade) return null;
       
      return(
-        <div className="fixed top-0 right-0 h-full w-96 bg-white shadow-2xl p-6 overflow-y-auto z-50">
+        <div className="fixed top-0 right-0 h-full w-96 bg-white dark:bg-zinc-800  shadow-2xl p-6 overflow-y-auto z-50">
              <button onClick={onClose} className="text-red-600 font-bold float-right">
                     X</button>
             <div className="flex justify-between items-center mb-6" >
@@ -67,22 +67,22 @@
                
             </div>
             <div className="space-y-4 border-black">
-                    <h3 className="text-black"><strong>Ticket:&nbsp;</strong>{trade.ticket}</h3>
-                    <h3 className="text-black"><strong>Symbol:&nbsp;</strong>{trade.symbol}</h3>
-                    <h3 className="text-black"><strong>Direction:&nbsp;</strong>
+                    <h3 className="text-black dark:text-white"><strong>Ticket:&nbsp;</strong>{trade.ticket}</h3>
+                    <h3 className="text-black dark:text-white"><strong>Symbol:&nbsp;</strong>{trade.symbol}</h3>
+                    <h3 className="text-black dark:text-white"><strong>Direction:&nbsp;</strong>
                     <b className={`${trade.trade_type === "BUY" ?"text-green-600":"text-red-600"}`}>
                        {trade.trade_type} </b></h3>
-                    <h3 className="text-black"><strong>Volume:&nbsp;</strong>{trade.volume}</h3>
-                    <h3 className="text-black"><strong>Entry:&nbsp;</strong>{trade.entry_price}</h3>
-                    <h3 className="text-black"><strong>Exit:&nbsp;</strong>{trade.exit_price}</h3>
-                    <h3 className="text-black"><strong>Outcome:&nbsp;</strong>
+                    <h3 className="text-black dark:text-white"><strong>Volume:&nbsp;</strong>{trade.volume}</h3>
+                    <h3 className="text-black dark:text-white"><strong>Entry:&nbsp;</strong>{trade.entry_price}</h3>
+                    <h3 className="text-black dark:text-white"><strong>Exit:&nbsp;</strong>{trade.exit_price}</h3>
+                    <h3 className="text-black dark:text-white"><strong>Outcome:&nbsp;</strong>
                     <b className={`${ trade.profit >= 0? "text-green-600":"text-red-600"}`}>
                    {trade.profit}</b></h3>
-                    <h3 className="text-black"><strong>Open:&nbsp;</strong>{trade.open_time}</h3>
-                    <h3 className="text-black"><strong>Close:&nbsp;</strong>{trade.close_time}</h3>
-                    <h3 className="text-black"><strong>Duration:&nbsp;</strong>{formatDuration(trade.open_time, trade.close_time)}</h3>
-                   <div className="mt-6 text-black">
-                     <label className="block font-semibold mb-2">Strategy</label>
+                    <h3 className="text-black dark:text-white"><strong>Open:&nbsp;</strong>{trade.open_time}</h3>
+                    <h3 className="text-black dark:text-white"><strong>Close:&nbsp;</strong>{trade.close_time}</h3>
+                    <h3 className="text-black dark:text-white"><strong>Duration:&nbsp;</strong>{formatDuration(trade.open_time, trade.close_time)}</h3>
+                   <div className="mt-6 text-black dark:text-white">
+                     <label className="block font-semibold mb-2 dark:text-white">Strategy</label>
                      <select value={strategy} onChange={(e) => setStrategy(e.target.value)}
                      className="w-full border rounded-lg p-3">
                         <option value="">Select Strategy </option>
@@ -94,18 +94,18 @@
                                    <option value="News">News </option>
                      </select>
                    </div>
-                   <div className="mt-6">
-                     <label className="block text-black font-semibold mb-2" >Trade Notes</label>
+                   <div className="mt-6 dark:text-white">
+                     <label className="block text-black font-semibold mb-2 dark:text-white" >Trade Notes</label>
                      <textarea
                      value={notes}
                      onChange={(e) => setNotes(e.target.value)}
                      rows={6}
-                     className="w-full border text-black rounded-lg p-3"
+                     className="w-full border text-black rounded-lg p-3 dark:text-white"
                      placeholder="Why did you enter this trade? What did you learn?"/>
                      {saved && ( <p className="text-green-600 font-semibold mb-2">
                          Notes Saved successfully
                      </p>)}
-                     <button onClick={saveNotes} className="mt-4 bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 ">
+                     <button onClick={saveNotes} className="mt-4 bg-blue-600 text-white  px-4 py-2 rounded-lg hover:bg-blue-700 ">
                         Save Notes
                      </button>
                    </div>

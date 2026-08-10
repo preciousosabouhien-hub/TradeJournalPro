@@ -22,12 +22,12 @@ profitBySymbol({ data } : Props ){
          fill={payload.profit >= 0 ? "#16a34a" : "#dc2626"} radius={[6,6,0,0]} />);
     }
     return (
-        <div className="bg-white rounded-xl shadow-md mt-8 p-6">
-            <h2 className="text-xl font-bold mb-4 text-black">
+        <div className="bg-white dark:bg-zinc-900 rounded-xl shadow-md mt-8 p-6 ">
+            <h2 className="text-xl font-bold mb-4 text-black dark:text-white">
                 Profit by Symbol</h2>
 
 
-                              <ResponsiveContainer className="text-black" width="100%" height={350}>
+                              <ResponsiveContainer className="text-black dark:text:white" width="100%" height={350}>
                     <BarChart data={data}><CartesianGrid strokeDasharray="33" />
                     <XAxis dataKey="symbol" />
                     <YAxis />

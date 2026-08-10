@@ -103,13 +103,14 @@ const directionMatch =
 
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
             
-                <StatCard title="Total Profit" value={`$${totalProfit.toFixed(2)}`}  valueClassName={totalProfit >= 0 ? "text-green-600":"text-red-600"} />
+                <StatCard title="Total Profit" value={`$${totalProfit.toFixed(2)}`}
+                  valueClassName={totalProfit >= 0 ? "text-green-600":"text-red-600"} />
                 
-                <StatCard title="Win Rate" value={`${winRate.toFixed(1)}%`} />
+                <StatCard title="Win Rate" value={`${winRate.toFixed(1)}%`}  valueClassName="text-black dark:text-white"  />
                 
-                <StatCard title="Trades" value={trades.length.toString()} />
+                <StatCard title="Trades" value={trades.length.toString()}  valueClassName="text-black dark:text-white" />
                 
-                <StatCard title="Profit Factor" value={profitFactor.toFixed(2)} />
+                <StatCard title="Profit Factor" value={profitFactor.toFixed(2)} valueClassName="text-black dark:text-white" />
             
             </div>
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mt-6">
@@ -123,9 +124,9 @@ const directionMatch =
             <div className="text-black flex flex-col md:flex-row gap-4 mb-6">
               
               <input type="text" placeholder="Search Symbol..." value={search} onChange={(e) => setSearch(e.target.value)}
-              className="bg-white dark:bg-zinc-900 border-black rounded-lg p-2 w-full md:w-64" />
+              className="bg-white dark:bg-zinc-900 dark:text-white border-black rounded-lg p-2 w-full md:w-64" />
               <select value={direction} onChange={(e) => setDirection(e.target.value)}
-                className="bg-white dark:bg-zinc-900 border-black rounded-lg p-2"
+                className="bg-white dark:bg-zinc-900 dark:text-white border-black rounded-lg p-2"
               >
                 <option value="ALL" >All Trades </option>
                                 <option value="BUY" >BUY </option>

@@ -35,13 +35,13 @@ export default function EquityChart({ trades }:
         });
 
     return (
-        <div className="bg-white rounded-xl shadow-md mt-8 p-6">
-            <h2 className="text-black text-xl font-bold mb-4">
+        <div className="bg-white dark:bg-zinc-900 rounded-xl shadow-md mt-8 p-6">
+            <h2 className="text-black dark:text-white text-xl font-bold mb-4">
                 Equity Curve
             </h2>
             <div className="h-96">
-            <ResponsiveContainer width="100%" height="100%">
-                <LineChart data={data}>
+            <ResponsiveContainer width="100%" height="100%" >
+                <LineChart data={data} >
                     <CartesianGrid strokeDasharray="2 2" stroke="#E5E7EB" />
                     
 
@@ -49,8 +49,8 @@ export default function EquityChart({ trades }:
 
                     <YAxis tickFormatter={(value) => `$${value}`} />
 
-                    <Tooltip />
-                    <Line             type="monotone" dataKey="equity" stroke="#EAB308" strokeWidth={3} dot={false} />
+                    <Tooltip  labelClassName="text-black "/>
+                    <Line   className="text-black bg-zinc-500 dark:bg-zinc-800 dark:text-white" type="monotone"  dataKey="equity" stroke="#EAB308" strokeWidth={3} dot={false} />
 
                 </LineChart>
             </ResponsiveContainer>

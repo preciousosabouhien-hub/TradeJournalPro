@@ -62,12 +62,12 @@ export default function AnalyticsPage() {
         
         <>
         <Navbar/>
-        <main className="bg=gray-300 min-h-screen p-8">
+        <main className="bg-gray-300 dark:bg-zinc-950 min-h-screen p-8">
             <h1 className="text-3xl font-bold mb-8">
                 Trading Analytics
             </h1>
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-                <Statcard title="Total Trades" value={totalTrades.toString()} />
+                <Statcard title="Total Trades" value={totalTrades.toString()} valueClassName="text-black dark:text-white"/>
 
                 <Statcard title="Winning Trades" value={winningTrades.toString()}  valueClassName="text-green-600"/>
 
