@@ -1,6 +1,8 @@
 "use client";
 
+
 import { useEffect, useState } from "react";
+import { FiMoon, FiSun } from "react-icons/fi";
 
 export default function ThemeToggle() {
     const [darkMode, setDarkMode ] = useState(false);
@@ -30,7 +32,7 @@ export default function ThemeToggle() {
         <button onClick={toggleTheme}
         className="px-3 py-2 rounded-lg bg-yellow-400 text-black hover:bg-yellow-300 transition-colors"
         aria-label="Toggle dark mode" >
-            {darkMode ? " Light" : " Dark"}
+            {darkMode ? <FiSun size={20} /> : <FiMoon size={20} />}
         </button>
     );
 }
