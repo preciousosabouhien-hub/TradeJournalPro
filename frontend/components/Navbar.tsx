@@ -1,4 +1,7 @@
 import Link from "next/link";
+import {
+    FiHome,FiBarChart2, FiBookOpen, FiSettings
+} from "react-icons/fi";
 import ThemeToggle from "./ThemeToggle";
 
 export default function Navbar(){
@@ -10,20 +13,23 @@ export default function Navbar(){
     
         <div className="flex gap-6">
          <a href="/" className="transition-colors duration-200 hover:text-yellow-400">
+            <FiHome size={18} />
             Dashboard
          </a>
 
-         <a href="#" className="transition-colors duration-200 hover:text-yellow-400">
-            Trades
-         </a>
+         <Link href="/" className="transition-colors duration-200 hover:text-yellow-400">
+           <FiBookOpen size={18} /> Trades
+         </Link>
 
-         <a href="/analytics" className="transition-colors duration-200 hover:text-yellow-400">
+         <Link href="/analytics" className="transition-colors duration-200 hover:text-yellow-400">
+            <FiBarChart2 size={18} />
             Analytics
-         </a>
+         </Link>
          
-         <a href="#" className="transition-colors duration-200 hover:text-yellow-400">
+         <Link href="/settings" className="transition-colors duration-200 hover:text-yellow-400">
+            <FiSettings size={18} />
             Settings
-         </a>
+         </Link>
          
        
         <ThemeToggle />
