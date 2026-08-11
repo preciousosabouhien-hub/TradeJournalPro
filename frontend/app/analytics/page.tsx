@@ -4,7 +4,7 @@ import {useEffect, useState } from "react";
 import axios from "axios";
 import { Trade } from "@/types/trade";
 import Navbar from "@/components/Navbar";
-import Statcard from "@/components/StatCard";
+import StatCard from "@/components/StatCard";
 import ProfitBySymbolChart from "@/components/ProfitBySymbolChart";
 
 export default function AnalyticsPage() {
@@ -37,7 +37,30 @@ export default function AnalyticsPage() {
 
         const averageProfit = totalTrades === 0 
         ? 0 :totalProfit / totalTrades;
-    
+
+        const maxDrawdown = trades.reduce(
+            (result, trade) => {
+
+                result.equity += trade.profit;
+
+                if (result.equity > result.peak ){
+                    result.peak = result.equity;
+                }
+
+                const drawdown = result.equity = result.peak;
+
+                if (drawdown < result.maxDrawdown) {
+                    result.maxDrawdown = drawdown; 
+                }
+
+                return result;
+            },{
+                equity:0,
+                peak:0,
+                maxDrawdown: 0,
+            }
+        ).maxDrawdown;
+
         console.log(trades);  
     
         const profitBySymbol = Object.values(
@@ -67,13 +90,16 @@ export default function AnalyticsPage() {
                 Trading Analytics
             </h1>
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-                <Statcard title="Total Trades" value={totalTrades.toString()} valueClassName="text-black dark:text-white"/>
+                <StatCard title="Total Trades" value={totalTrades.toString()} valueClassName="text-black dark:text-white"/>
 
-                <Statcard title="Winning Trades" value={winningTrades.toString()}  valueClassName="text-green-600"/>
+                <StatCard title="Winning Trades" value={winningTrades.toString()}  valueClassName="text-green-600"/>
 
-                 <Statcard title="Losing Trades" value={losingTrades.toString()}  valueClassName="text-red-600" />
+                 <StatCard title="Losing Trades" value={losingTrades.toString()}  valueClassName="text-red-600" />
 
-                 <Statcard title="Average Profit" value={`$${averageProfit.toFixed(2)}`}  valueClassName={averageProfit >= 0 ? "text-green-600":"text-red-600"} />
+                 <StatCard title="Average Profit" value={`$${averageProfit.toFixed(2)}`} 
+                  valueClassName={averageProfit >= 0 ? "text-green-600":"text-red-600"} />
+
+                  <StatCard title="Max Drawdown" value={`$${maxDrawdown.toFixed(2)}`} />
                 
             </div>
             <ProfitBySymbolChart data={profitBySymbol} />
