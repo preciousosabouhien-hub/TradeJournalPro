@@ -57,8 +57,8 @@ profitBySymbol({ data } : Props ){
 
                               <ResponsiveContainer className="text-black dark:text:white" width="100%" height={350}>
 
-                    <BarChart data={data}>
-                        <CartesianGrid stroke={gridColor}
+                    <BarChart data={data} >
+                        <CartesianGrid stroke={gridColor} 
                         strokeDasharray="3 3" />
 
                     <XAxis dataKey="symbol" tick={{ fill:"textColor"}}/>
@@ -74,7 +74,7 @@ profitBySymbol({ data } : Props ){
                     ]} />
                     <ReferenceLine y={0} stroke="#000" />
                     <Bar dataKey="profit"  
-                    shape={ProfitBar} />
+                    shape={ProfitBar}/>
                     </BarChart>
                 </ResponsiveContainer>
         </div>

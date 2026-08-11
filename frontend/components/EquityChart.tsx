@@ -1,5 +1,5 @@
 "use client";
-
+import {useEffect, useState } from "react" ;
 import{
     LineChart,
     Line,
@@ -23,6 +23,30 @@ type Props ={
 
 export default function EquityChart({ trades }:
     Props) {
+        //Dark mode
+        const [darkMode, setDarkMode] = useState(false);
+
+        useEffect(() => {
+            const checkTheme = () =>{
+                setDarkMode(
+                    document.documentElement.classList.contains("dark")
+                );
+            };
+             checkTheme();
+
+             const observer= new MutationObserver(checkTheme);
+
+             observer.observe(document.documentElement, {
+                attributes: true ,
+                attributeFilter:["class"],
+             });
+             return () => observer.disconnect(); }, []);
+
+             const textColor = darkMode ? "#ffffff" : "#171717";
+
+             const gridColor = darkMode ? "#3f3f46" : "#d4d4d8" ;
+        
+             //Build equity curve
         let balance = 0;
 
         const data = trades.map((trade, index) => {
@@ -45,12 +69,16 @@ export default function EquityChart({ trades }:
                     <CartesianGrid strokeDasharray="2 2" stroke="#E5E7EB" />
                     
 
-                    <XAxis dataKey="trade" />
+                    <XAxis dataKey="trade"  tick={{fill: textColor}}/>
 
-                    <YAxis tickFormatter={(value) => `$${value}`} />
+                    <YAxis tick={{ fill:textColor}} tickFormatter={(value) => `$${value}`} />
 
-                    <Tooltip  labelClassName="text-black "/>
-                    <Line   className="text-black bg-zinc-500 dark:bg-zinc-800 dark:text-white" type="monotone"  dataKey="equity" stroke="#EAB308" strokeWidth={3} dot={false} />
+                    <Tooltip  labelClassName="text-black dark:text-white" contentStyle={{backgroundColor: darkMode ? "#1818b" : "#ffffff",
+                    border: darkMode ? "1px solid #3f3f46" : "1px solid #d4d4d8",
+                    borderRadius : "8px", color: textColor, }} formatter={(value) => [ `$${Number(value).toFixed(2)}`, "Equity",]} />
+
+                    <Line  type="monotone" 
+                     dataKey="equity" stroke="#EAB308" strokeWidth={3} dot={false} />
 
                 </LineChart>
             </ResponsiveContainer>
