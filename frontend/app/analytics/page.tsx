@@ -47,7 +47,7 @@ export default function AnalyticsPage() {
                     result.peak = result.equity;
                 }
 
-                const drawdown = result.equity = result.peak;
+                const drawdown = result.equity - result.peak;
 
                 if (drawdown < result.maxDrawdown) {
                     result.maxDrawdown = drawdown; 
@@ -60,6 +60,31 @@ export default function AnalyticsPage() {
                 maxDrawdown: 0,
             }
         ).maxDrawdown;
+
+        const maxDrawdownPercent = trades.reduce(
+            (result, trade) => {
+                result.equity += trade.profit;
+
+                if (result.equity > result.peak){
+                    result.peak = result.equity;
+                }
+
+                if (result.peak > 0){
+                    const drawdownPercent = ((result.equity - result.peak) / result.peak ) * 100;
+
+                    if(drawdownPercent < result.maxDrawdownPercent){
+                        result.maxDrawdownPercent = drawdownPercent;
+                    }
+                }
+                return result;},
+                {
+                    equity:0,
+                    peak:0,
+                    maxDrawdownPercent:0,
+                }
+
+            
+        ).maxDrawdownPercent;
 
         console.log(trades);  
     
@@ -99,7 +124,7 @@ export default function AnalyticsPage() {
                  <StatCard title="Average Profit" value={`$${averageProfit.toFixed(2)}`} 
                   valueClassName={averageProfit >= 0 ? "text-green-600":"text-red-600"} />
 
-                  <StatCard title="Max Drawdown" value={`$${maxDrawdown.toFixed(2)}`} />
+                  <StatCard title="Max Drawdown" value={`$${maxDrawdown.toFixed(2)}`} valueClassName={maxDrawdown >= 0 ? "text-green-600":"text-red-600" } />
                 
             </div>
             <ProfitBySymbolChart data={profitBySymbol} />

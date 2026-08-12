@@ -48,6 +48,26 @@ profitBySymbol({ data } : Props ){
          {...props}
          fill={payload.profit >= 0 ? "#16a34a" : "#dc2626"} radius={[6,6,0,0]} />);
     };
+
+    const CustomTooltip = ({ active, payload }: any) => {
+        if(!active || !payload || !payload.length){
+            return null;
+        }
+        const profit = Number(payload[0].value);
+
+        const isProfit = profit >= 0;
+
+        return(
+            <div className = "bg-white dark:bg-zinc-900 border border-gray-200 dark:border-zinc-700 rounded-lg p-3 shadow-lg" >
+                <p className="text-black dark:text-white font-semibold">
+                    {payload[0].payload.symbol}
+                </p>
+                <p className={isProfit ?  " text-green-600 font-bold" : "text-red-600 font-bold" }>
+                    {isProfit ? "+" : "-"}${Math.abs(profit).toFixed(2)}
+                </p>
+                </div>
+        );
+    };
           
    return (
         <div className="bg-white dark:bg-zinc-900 rounded-xl shadow-md mt-8 p-6 ">
@@ -63,15 +83,12 @@ profitBySymbol({ data } : Props ){
 
                     <XAxis dataKey="symbol" tick={{ fill:"textColor"}}/>
                     
-                    <YAxis  tick={{ fill:"textColor"}}/>
+                    <YAxis  tick={{ fill:"textColor"}} />
                     
                     <Tooltip 
-                    contentStyle={{ backgroundColor : darkMode ? "#18181b" : "#ffffff", 
-                        border: darkMode ? "1px solid #3f3f46" : "1px solid #d4d4d8",
-                        borderRadius: "8px", color: textColor, }}
-                    formatter={(value) => [
-                        `$${Number(value).toFixed(2)}`, "Profit"
-                    ]} />
+                    content={<CustomTooltip />}
+                   />
+                   
                     <ReferenceLine y={0} stroke="#000" />
                     <Bar dataKey="profit"  
                     shape={ProfitBar}/>
