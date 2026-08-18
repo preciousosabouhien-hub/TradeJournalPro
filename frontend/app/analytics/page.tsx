@@ -6,6 +6,7 @@ import { Trade } from "@/types/trade";
 import Navbar from "@/components/Navbar";
 import StatCard from "@/components/StatCard";
 import ProfitBySymbolChart from "@/components/ProfitBySymbolChart";
+import DrawdownChart from "@/components/DrawdownChart";
 
 export default function AnalyticsPage() {
     const [trades, setTrades] = useState<Trade[]>([]);
@@ -133,6 +134,7 @@ export default function AnalyticsPage() {
                 <StatCard title="Max Drawdown %" value={ `${maxDrawdownPercent.toFixed(2)}%`} valueClassName="text-red-600" />
             </div>
             <ProfitBySymbolChart data={profitBySymbol} />
+            <DrawdownChart trades={trades} />
         </main>
         </>
     );
