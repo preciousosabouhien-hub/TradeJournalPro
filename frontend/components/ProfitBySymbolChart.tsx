@@ -46,7 +46,8 @@ profitBySymbol({ data } : Props ){
         return(
          <Rectangle 
          {...props}
-         fill={payload.profit >= 0 ? "#16a34a" : "#dc2626"} radius={[6,6,0,0]} />);
+         fill={payload.profit >= 0 ? "#16a34a" : "#dc2626"} radius={[6,6,0,0]}
+          />);
     };
 
     const CustomTooltip = ({ active, payload }: any) => {
@@ -81,19 +82,21 @@ profitBySymbol({ data } : Props ){
                         <CartesianGrid stroke={gridColor} 
                         strokeDasharray="3 3" />
 
-                    <XAxis dataKey="symbol" tick={{ fill:"textColor"}}/>
+                    <XAxis dataKey="symbol" tick={{ fill: textColor}}/>
                     
-                    <YAxis  tick={{ fill:"textColor"}} />
+                    <YAxis  tick={{ fill:textColor}} />
                     
                     <Tooltip 
+                    cursor={false}
                     content={<CustomTooltip />}
                    />
                    
                     <ReferenceLine y={0} stroke="#000" />
                     <Bar dataKey="profit"  
-                    shape={ProfitBar}/>
+                    shape={ProfitBar}
+                    activeBar={false}/>
                     </BarChart>
-                </ResponsiveContainer>
+                 </ResponsiveContainer>
         </div>
     );
 }

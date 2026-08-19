@@ -73,16 +73,16 @@ DrawdownChart({ trades }: Props ){
                 <ResponsiveContainer width="100%" height={350}>
                     <LineChart data={data}>
                         <CartesianGrid stroke="#52525b" strokeDasharray="3 3"/>
-                            <XAxis datakey="trade" tick={{fill: "currentColor"}} label={{value: "Trade", position:"insideBottom", offset: -5,
+                            <XAxis datakey="trade" tick={{fill:textColor}} label={{value: "Trades", position:"insideBottom", offset: -5,
                                 fill:textColor,
                             }} />
-                            <YAxis tick={{fill:"textColor"}} />
+                            <YAxis tick={{fill:textColor}} />
                             <ReferenceLine y={0} stroke="textColor" />
                             <Tooltip contentStyle={{
                                 backgroundColor: darkMode ? "#18181b" : "#ffffff", border: darkMode ? "1px solid #3f3f46" : "1px solid #d4d4d8",
                                 borderRadius: "8px",
                             }}
-                            formatter={(value) => [`$${Number(value).toFixed(2)},"Drawdown",` ]} 
+                            formatter={(value) => [`$${Number(value).toFixed(2)},"Drawdown"` ]} 
                             labelFormatter={(label) => `Trade ${label}`} />
                                 <Line type="monotone" dataKey="drawdown" stroke="#ef4444" strokeWidth={2} dot={false} />
                                 </LineChart>
